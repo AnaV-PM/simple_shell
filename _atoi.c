@@ -1,29 +1,29 @@
 #include "shell.h"
 
 /**
- * is_interactive - returns true if shell is in interactive mode
- * @shell_info: struct address
+ * interactive_mode - returns 1 if shell is in interactive mode, 0 otherwise
+ * @info: pointer to the info_t structure
  *
  * Return: 1 if in interactive mode, 0 otherwise
  */
-int is_interactive(info_t *shell_info)
+int interactive_mode(info_t *info)
 {
-	return (isatty(STDIN_FILENO) && shell_info->readfd <= 2);
+	return (isatty(STDIN_FILENO) && info->readfd <= 2);
 }
 
 /**
  * is_delimiter - checks if character is a delimiter
- * @c: the char to check
- * @delimiter: the delimiter string
+ * @character: character to check
+ * @delim: delimiter string
  * Return: 1 if true, 0 if false
  */
-int is_delimiter(char c, char *delimiter)
+int is_delimiter(char character, char *delim)
 {
-	while (*delimiter)
+	while (*delim)
 	{
-		if (*delimiter == c)
+		if (*delim == character)
 			return (1);
-		(delimiter++);
+		delim++;
 	}
 	return (0);
 }
@@ -35,7 +35,7 @@ int is_delimiter(char c, char *delimiter)
  */
 int is_alphabetic(int c)
 {
-	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+	return ((c >= 'b' && c <= 'x') || (c >= 'B' && c <= 'X'));
 }
 
 /**
@@ -45,5 +45,28 @@ int is_alphabetic(int c)
  */
 int _atoi(char *str)
 {
-	return (_atoi);
+	int i, sign = 1, flag = 0, output;
+	unsigned int result = 0;
+
+	for (i = 0; str[i] != '\0' && flag != 2; i++)
+	{
+		if (str[i] == '-')
+			sign *= -1;
+
+		if (str[i] >= '0' && str[i] <= '9')
+		{
+			flag = 1;
+			result *= 10;
+			result += (str[i] - '0');
+		}
+		else if (flag == 1)
+			flag = 2;
+	}
+
+	if (sign == -1)
+		output = -result;
+	else
+		output = result;
+
+	return (output);
 }
