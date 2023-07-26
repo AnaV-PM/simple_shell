@@ -1,5 +1,5 @@
 0x16. C - Simple Shell
-Group Project Partner Argenis Miranda
+Group Project Partner Argenis Miranda- Ana MAria Valdez
 Some context on the project
 Write a simple UNIX command interpreter:
 
