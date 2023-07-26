@@ -9,17 +9,17 @@
  */
 int hsh(info_t *info, char **av)
 {
-	ssize_t read_result = 0;
+	ssize_t r = 0;
 	int builtin_ret = 0;
 
-	while (read_result != -1 && builtin_ret != -2)
+	while (r != -1 && builtin_ret != -2)
 	{
 		clear_info(info);
 		if (interactive(info))
 			_puts("$ ");
 		_eputchar(BUF_FLUSH);
-		read_result = get_input(info);
-		if (read_result != -1)
+		r = get_input(info);
+		if (r != -1)
 		{
 			set_info(info, av);
 			builtin_ret = find_builtin(info);
@@ -48,13 +48,13 @@ int hsh(info_t *info, char **av)
  * @info: the parameter & return info struct
  *
  * Return: -1 if builtin not found,
- *          0 if builtin executed successfully,
- *          1 if builtin found but not successful,
- *          -2 if builtin signals exit()
+ *			0 if builtin executed successfully,
+ *			1 if builtin found but not successful,
+ *			-2 if builtin signals exit()
  */
 int find_builtin(info_t *info)
 {
-	int i, builtin_ret = -1;
+	int i, built_in_ret = -1;
 	builtin_table builtintbl[] = {
 		{"exit", _myexit},
 		{"env", _myenv},
@@ -67,14 +67,14 @@ int find_builtin(info_t *info)
 		{NULL, NULL}
 	};
 
-	for (i = 0; builtintbl[i].name; i++)
-		if (_strcmp(info->argv[0], builtintbl[i].name) == 0)
+	for (i = 0; builtintbl[i].type; i++)
+		if (_strcmp(info->argv[0], builtintbl[i].type) == 0)
 		{
 			info->line_count++;
-			builtin_ret = builtintbl[i].func(info);
+			built_in_ret = builtintbl[i].func(info);
 			break;
 		}
-	return (builtin_ret);
+	return (built_in_ret);
 }
 
 /**
@@ -132,7 +132,7 @@ void fork_cmd(info_t *info)
 	child_pid = fork();
 	if (child_pid == -1)
 	{
-		/*  PUT ERROR FUNCTION */
+		/* TODO: PUT ERROR FUNCTION */
 		perror("Error:");
 		return;
 	}
@@ -145,7 +145,7 @@ void fork_cmd(info_t *info)
 				exit(126);
 			exit(1);
 		}
-		/* PUT ERROR FUNCTION */
+		/* TODO: PUT ERROR FUNCTION */
 	}
 	else
 	{
