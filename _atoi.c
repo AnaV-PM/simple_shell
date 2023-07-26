@@ -1,32 +1,76 @@
 #include "shell.h"
+/**
+ * interactive - Returns true if shell is in interactive mode
+ * @info: Pointer to the info_t struct
+ *
+ * Return: 1 if interactive mode, 0 otherwise
+ */
+int interactive(info_t *info)
+{
+	return (isatty(STDIN_FILENO) && info->readfd <= 2);
+}
 
 /**
- * _atoi - convert a string to an integer.
+ * is_delim - Checks if a character is a delimiter
+ * @c: The character to check
+ * @delim: The delimiter string
  *
- * @prmString: char pointer
- *
- * Return: int
+ * Return: 1 if true, 0 if false
  */
-int _atoi(char *prmString)
+int is_delim(char c, char *delim)
 {
-	char sign = 1, current;
-	int size = _strlen(prmString), cLoop;
-	unsigned int number = 0;
-
-	for (cLoop = 0; cLoop < size; cLoop++)
+	while (*delim)
 	{
-		current = prmString[cLoop];
+		if (*delim++ == c)
+			return (1);
+	}
+	return (0);
+}
 
-		if (_isdigit(current))
+/**
+ * _isalpha - Checks for an alphabetic character
+ * @c: The character to check
+ *
+ * Return: 1 if c is alphabetic, 0 otherwise
+ */
+int _isalpha(int c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	else
+		return (0);
+}
+
+/**
+ * _atoi - Converts a string to an integer
+ * @s: The string to be converted
+ *
+ * Return: 0 if no numbers in string, converted number otherwise
+ */
+int _atoi(char *s)
+{
+	int i, sign = 1, flag = 0, output;
+	unsigned int result = 0;
+
+	for (i = 0; s[i] != '\0' && flag != 2; i++)
+	{
+		if (s[i] == '-')
+			sign *= -1;
+
+		if (s[i] >= '0' && s[i] <= '9')
 		{
-			number *= 10;
-			number += current - 48;
+			flag = 1;
+			result *= 10;
+			result += (s[i] - '0');
 		}
-		else if (current == '-')
-			sign = -sign;
-		else if (number > 0)
-			break;
+		else if (flag == 1)
+			flag = 2;
 	}
 
-	return (sign * number);
+	if (sign == -1)
+		output = -result;
+	else
+		output = result;
+
+	return (output);
 }
