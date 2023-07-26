@@ -45,5 +45,5 @@ int is_alphabetic(int c)
  */
 int _atoi(char *str)
 {
-	return _atoi(str);
+	return (_atoi);
 }
