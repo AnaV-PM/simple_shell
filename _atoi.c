@@ -1,5 +1,4 @@
 #include "shell.h"
-#include <stdlib.h>
 
 /**
  * is_interactive - returns true if shell is in interactive mode
@@ -24,7 +23,7 @@ int is_delimiter(char c, char *delimiter)
 	{
 		if (*delimiter == c)
 			return (1);
-		delimiter++;
+		(delimiter++);
 	}
 	return (0);
 }
