@@ -1,22 +1,17 @@
-#include "shell.h"
+#include "main.h"
 
 /**
  * _myexit - exits the shell
- * @info: the Structure containing arguments
- * constant function prototype.
- * Return: with a given exit status return exit
  * @info: Structure containing potential arguments. Used to maintain
- * constant function prototype.
- * Return: exits with a given exit status
- * (0) if info.argv[0] != "exit"
+ *          constant function prototype.
+ *  Return: exits with a given exit status
+ *         (0) if info.argv[0] != "exit"
  */
 int _myexit(info_t *info)
 {
 	int exitcheck;
 
-
-	if (info->argv[1])
-	if (info->argv[1]) /* If there is an exit arguement */
+	if (info->argv[1])  /* If there is an exit arguement */
 	{
 		exitcheck = _erratoi(info->argv[1]);
 		if (exitcheck == -1)
@@ -33,14 +28,12 @@ int _myexit(info_t *info)
 	info->err_num = -1;
 	return (-2);
 }
-/**
- * _mycd -  this changes the current directory
- * @info: the struct containing potential arguments
+
 /**
  * _mycd - changes the current directory of the process
  * @info: Structure containing potential arguments. Used to maintain
- * constant function prototype.
- * Return: Always 0
+ *          constant function prototype.
+ *  Return: Always 0
  */
 int _mycd(info_t *info)
 {
@@ -54,7 +47,6 @@ int _mycd(info_t *info)
 	{
 		dir = _getenv(info, "HOME=");
 		if (!dir)
-			chdir_ret =
 			chdir_ret = /* TODO: what should this be? */
 				chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
 		else
@@ -69,7 +61,6 @@ int _mycd(info_t *info)
 			return (1);
 		}
 		_puts(_getenv(info, "OLDPWD=")), _putchar('\n');
-		chdir_ret =
 		chdir_ret = /* TODO: what should this be? */
 			chdir((dir = _getenv(info, "OLDPWD=")) ? dir : "/");
 	}
@@ -91,8 +82,8 @@ int _mycd(info_t *info)
 /**
  * _myhelp - changes the current directory of the process
  * @info: Structure containing potential arguments. Used to maintain
- * constant function prototype.
- * Return: Always 0
+ *          constant function prototype.
+ *  Return: Always 0
  */
 int _myhelp(info_t *info)
 {
